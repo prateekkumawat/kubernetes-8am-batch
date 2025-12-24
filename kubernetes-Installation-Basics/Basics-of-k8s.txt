@@ -1,0 +1,57 @@
+this command use to display all availabel K8s nodes, status nodes and which version running.
+ROLES -control-plan nodes called master node, rest all worker nodes 
+[root@ip-172-31-1-27 ec2-user]# kubectl get node 
+NAME                                           STATUS   ROLES           AGE   VERSION
+ip-172-31-1-27.ap-south-2.compute.internal     Ready    control-plane   23h   v1.35.0
+ip-172-31-14-143.ap-south-2.compute.internal   Ready    <none>          23h   v1.35.0
+
+# kubectl describe node node_name 
+
+# kubectl drain node node_name 
+
+- show all running pod in my system 
+[root@ip-172-31-1-27 ec2-user]# kubectl get pod -A    // --all-namespace
+NAMESPACE      NAME                                                                 READY   STATUS    RESTARTS      AGE
+kube-flannel   kube-flannel-ds-rfrlj                                                1/1     Running   1 (21m ago)   24h
+kube-flannel   kube-flannel-ds-zvq2p                                                1/1     Running   1 (21m ago)   24h
+kube-system    coredns-7d764666f9-9pqll                                             1/1     Running   1 (21m ago)   24h
+kube-system    coredns-7d764666f9-cnk9k                                             1/1     Running   1 (21m ago)   24h
+kube-system    etcd-ip-172-31-1-27.ap-south-2.compute.internal                      1/1     Running   1 (21m ago)   24h
+kube-system    kube-apiserver-ip-172-31-1-27.ap-south-2.compute.internal            1/1     Running   1 (21m ago)   24h
+kube-system    kube-controller-manager-ip-172-31-1-27.ap-south-2.compute.internal   1/1     Running   1 (21m ago)   24h
+kube-system    kube-proxy-975rw                                                     1/1     Running   1 (21m ago)   24h
+kube-system    kube-proxy-pwc44                                                     1/1     Running   1 (21m ago)   24h
+kube-system    kube-scheduler-ip-172-31-1-27.ap-south-2.compute.internal            1/1     Running   1 (21m ago)   24h
+
+- specific namespace pods show
+[root@ip-172-31-1-27 ec2-user]# kubectl get pod -n kube-system
+NAME                                                                 READY   STATUS    RESTARTS      AGE
+coredns-7d764666f9-9pqll                                             1/1     Running   1 (28m ago)   24h
+coredns-7d764666f9-cnk9k                                             1/1     Running   1 (28m ago)   24h
+etcd-ip-172-31-1-27.ap-south-2.compute.internal                      1/1     Running   1 (28m ago)   24h
+kube-apiserver-ip-172-31-1-27.ap-south-2.compute.internal            1/1     Running   1 (28m ago)   24h
+kube-controller-manager-ip-172-31-1-27.ap-south-2.compute.internal   1/1     Running   1 (28m ago)   24h
+kube-proxy-975rw                                                     1/1     Running   1 (28m ago)   24h
+kube-proxy-pwc44                                                     1/1     Running   1 (28m ago)   24h
+kube-scheduler-ip-172-31-1-27.ap-south-2.compute.internal            1/1     Running   1 (28m ago)   24h
+
+- availiable all namespace
+# kubectl get ns
+
+- create a nginx pod and display 
+[root@ip-172-31-1-27 ec2-user]# kubectl run test-pod --image=nginx --port=80
+pod/test-pod created
+
+[root@ip-172-31-1-27 ec2-user]# kubectl get pod
+NAME       READY   STATUS    RESTARTS   AGE
+test-pod   1/1     Running   0          15s
+
+- connecting your running pod 
+[root@ip-172-31-1-27 ec2-user]# kubectl exec -it test-pod -- bash 
+root@test-pod:/#
+
+- create a pod in a learning namespace 
+[root@ip-172-31-1-27 ec2-user]# kubectl run test-pod-ns -n learning  --image=nginx --port=80
+pod/test-pod-ns created
+
+- kubectl get pod -n learning 

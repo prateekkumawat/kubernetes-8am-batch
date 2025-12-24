@@ -1,0 +1,14 @@
+# PODS :::::
+- in the kubernetes pod is a smallest compute unit in that your container is running.
+- pod is responsible for provide storage, security, contexts and network etc. for container. 
+- kubernetes run every container and maintain using pod 
+- pods is used for run application in kubernetes. 
+- pod support one single container or multiple container (side-carcontainer, init container etc.)
+
+
+# namespace :::: 
+- in kubernetes namespace provide a logical space to segreate your enviornments 
+- in kubernetes all services running in namespace
+- default namespace is used if you not provide any namespace
+- kube-system namespace is used manage kubenrentes key services. 
+
