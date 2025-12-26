@@ -1,0 +1,35 @@
+apiVersion: v1                    # -> call api and discover resources in kubernetes 
+kind: Pod                         # -- kind define your resource type which you want to manage 
+metadata:                         # detail informaion  like object name 
+  name: "MYAPP"                   # namespace and labels and onther details
+  namespace: default
+  labels:
+    app: "MYAPP"
+spec:                             #  object spec declare for create object and resources 
+  containers:                     #  containers details define 
+  - name: MYAPP                   # name image ports enviornmets volumes and storage details limits 
+    image: "debian-slim:latest"
+    resources:
+      limits:
+        cpu: 200m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
+    env:
+    - name: DB_HOST
+      valueFrom:
+        configMapKeyRef:
+          name: MYAPP
+          key: DB_HOST
+    ports:
+    - containerPort:  80
+      name:  http
+    volumeMounts:
+    - name: localtime
+      mountPath: /etc/localtime
+  volumes:
+    - name: localtime
+      hostPath:
+        path: /usr/share/zoneinfo/Asia/Shanghai
+  restartPolicy: Always
