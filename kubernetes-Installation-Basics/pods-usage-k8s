@@ -12,3 +12,15 @@
 - default namespace is used if you not provide any namespace
 - kube-system namespace is used manage kubenrentes key services. 
 
+# service :::: 
+- services is exposing method of applications. 
+- service method provide 3 way to expose ClusterIP NodePort and Loadbalancer 
+- in a clusterIP method pods can be accessiable by cluster machine only master and workers 
+- NodePort method alloe to access your pods using external access but 
+  pods expose on port range 30000-32767
+- Loadbalancer if exist you can access you pods like in cloud env you have alb or azure loadbalancer 
+
+# Deployment ::::
+- kubernetes Deployment is a setof pods that manage your application. 
+- Deployment used for application deployment that help to maintain Replica of Pods, manage high availability
+- if you want to rollout and rollback and manage to upgrade . 
