@@ -1,0 +1,104 @@
+# create application namespace 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: php-app-demo
+
+---
+# create a mysql app deployment for manage php-app-demo 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: php-app-demo
+spec:
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        env: 
+        - name: MYSQL_ROOT_PASSWORD
+          value: redhat
+        - name: MYSQL_USER
+          value: appuser
+        - name: MYSQL_PASSWORD  
+          value: redhat
+        - name: MYSQL_DATABASE
+          value: appdb
+
+---
+# service create for mysql 
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: php-app-demo
+spec:
+  selector:
+    app: database
+  ports:
+  - port: 3306
+    targetPort: 3306
+
+---
+# deployment for php app 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpapp 
+  namespace: php-app-demo
+spec:
+  selector:
+    matchLabels:
+      app: phpapp
+  template:
+    metadata:
+      labels:
+        app: phpapp
+    spec:
+      containers:
+      - name: phpapp
+        image: prateekkumawat/demoapp:php-1.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env: 
+        - name: DB_USER
+          value: appuser
+        - name: DB_PASSWORD
+          value: redhat
+        - name: DB_NAME
+          value: appdb
+        - name: DB_HOST
+          value: mysql-svc.php-app-demo.svc.cluster.local 
+     
+---
+# expose php app 
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpapp-svc
+  namespace: php-app-demo
+spec:
+  selector:
+    app: phpapp
+  type: NodePort  
+  ports:
+  - port: 80
+    targetPort: 80
