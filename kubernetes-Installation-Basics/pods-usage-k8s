@@ -24,3 +24,8 @@
 - kubernetes Deployment is a setof pods that manage your application. 
 - Deployment used for application deployment that help to maintain Replica of Pods, manage high availability
 - if you want to rollout and rollback and manage to upgrade . 
+
+
+# Container-container svc communication 
+- kubernetes pod to pod connection used using svc for that declare name 
+- svc-name.namespace.svc.cluster.local    
