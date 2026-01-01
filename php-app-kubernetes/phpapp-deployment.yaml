@@ -24,9 +24,12 @@ spec:
       - name: mysql
         image: mysql:latest
         resources:
-          limits:
+          requests: 
             memory: "128Mi"
             cpu: "500m"
+          limits:
+            memory: "500Mi"
+            cpu: "800m"
         ports:
         - containerPort: 3306
         env: 
