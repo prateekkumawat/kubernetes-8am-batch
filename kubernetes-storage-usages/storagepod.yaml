@@ -8,7 +8,7 @@ metadata:
 spec:
   volumes:
   - name: external-data-vol
-    persistentVolumeClaims:
+    persistentVolumeClaim:
       claimName: nfs-mount-data0
   containers:
   - name: storage-app
@@ -22,6 +22,9 @@ spec:
         cpu: "500m"
     ports:
       - containerPort: 80
+    command:
+      - sleep
+      - "3600"
     volumeMounts:
     - name: external-data-vol
       mountPath: /opt  
