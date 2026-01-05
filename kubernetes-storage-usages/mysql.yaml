@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: storages
+spec:
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      volumes:
+      - name: databasevol
+        persistentVolumeClaim:
+          claimName: nfs-mount-data0
+      containers:
+      - name: mysql
+        image: mysql:latest
+        resources:
+          requests: 
+            memory: "128Mi"
+            cpu: "500m"
+          limits:
+            memory: "500Mi"
+            cpu: "800m"
+        ports:
+        - containerPort: 3306
+        env: 
+        - name: MYSQL_ROOT_PASSWORD
+          value: redhat
+        - name: MYSQL_USER
+          value: appuser
+        - name: MYSQL_PASSWORD  
+          value: redhat
+        - name: MYSQL_DATABASE
+          value: appdb
+        volumeMounts:
+        - name: databasevol
+          mountPath: /var/lib/mysql
+---
+# service create for mysql 
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+  namespace: storages
+spec:
+  selector:
+    app: database
+  ports:
+  - port: 3306
+    targetPort: 3306
