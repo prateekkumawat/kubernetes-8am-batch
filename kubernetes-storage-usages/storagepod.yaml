@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: storage-app
+  namespace: storages
+  labels:
+    app: storages
+spec:
+  volumes:
+  - name: external-data-vol
+    persistentVolumeClaims:
+      claimName: nfs-mount-data0
+  containers:
+  - name: storage-app
+    image: ubuntu:latest
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "300m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+    volumeMounts:
+    - name: external-data-vol
+      mountPath: /opt  

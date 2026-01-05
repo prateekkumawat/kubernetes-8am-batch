@@ -29,3 +29,15 @@
 # Container-container svc communication 
 - kubernetes pod to pod connection used using svc for that declare name 
 - svc-name.namespace.svc.cluster.local    
+
+# Persistent Volume and Persistent Volume Claim :::: 
+- A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned.
+- Persistsent storage is manage  details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+-
+
+
+# Types of volumes supported by kubernetes for persistent volume
+- awsElasticBlockStore (EBS)   azureDisk (Microsoft Azure Block storage)  azureFile( Nfs ) ElasticFileStorage ( aws nfs servive ) 
+- cephfs  cinder  emptyDir fc (fibre channel)
+- gcePersistentDisk (deprecated)   glusterfs   hostPath   iscsi  local  nfs   ( local storage management)
+- accessmode: ReadWriteOnce ( Only One Node can Write and Read ); ReadWriteMany ( any pod can read and write); ReadWriteOncePod(only one pod allow to read and write ) ReadWriteMany
