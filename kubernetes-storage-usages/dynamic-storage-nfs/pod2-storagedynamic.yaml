@@ -13,7 +13,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  StorageClassName: nfs-csi
+  storageClassName: nfs-csi
   accessModes:
     - ReadWriteOnce
 
@@ -27,7 +27,7 @@ metadata:
 spec:
   volumes:
   - name: mount2
-    persistentvolumeClaim:
+    persistentVolumeClaim:
       claimName: name2-data2 
   containers:
   - name: name2
