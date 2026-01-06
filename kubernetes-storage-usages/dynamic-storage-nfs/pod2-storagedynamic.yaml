@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: name2 
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: name2-data2
+  namespace: name2
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  StorageClass: nfs-csi
+  accessModes:
+    - ReadWriteOnce
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: name2
+  labels:
+    app.kubernetes.io/name: name2
+spec:
+  volumes:
+  - name: mount2
+    persistentvolumeclaim:
+      claimName: name2-data2 
+  containers:
+  - name: name2
+    image: busybox
+    command:
+      - sleep
+      - "3600"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+    - name: mount2
+      mountPath: /opt
