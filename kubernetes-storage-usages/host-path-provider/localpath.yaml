@@ -1,17 +1,4 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mypv1
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: local-path
-
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mypvc
@@ -21,7 +8,7 @@ spec:
       storage: 1Gi
   accessModes:
     - ReadWriteOnce
-
+  storageClassName: local-path
 ---
 apiVersion: v1
 kind: Pod
