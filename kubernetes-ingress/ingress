@@ -1,0 +1,20 @@
+# ingress Introduction ::::
+Make your HTTP (or HTTPS) network service available using a protocol-aware configuration mechanism, 
+that understands web concepts like URIs, hostnames, paths, and more. 
+The Ingress concept lets you map traffic to different backends based on rules you define via the Kubernetes API.
+
+- Ingress working in kubernetes as a incoming traffic entry point that control your routing and manangement 
+
+- kubernetes have one single entry point using ingress
+
+An Ingress does not expose arbitrary ports or protocols. 
+Exposing services other than HTTP and HTTPS to the internet typically uses a service of type Service.Type=NodePort or Service.Type=LoadBalancer
+
+
+https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/ 
+https://kubernetes.io/docs/concepts/services-networking/ingress/
+
+
+path routing ; host routing ; routing manage 
+
+--- Nginx kong Envoy ---- routing rules writing 
