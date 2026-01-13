@@ -8,11 +8,12 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /  
 spec:
+  ingressClassName: nginx 
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: app1
@@ -30,11 +31,12 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /  
 spec:
+  ingressClassName: nginx 
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: /
         backend:
           service:
             name: app2
