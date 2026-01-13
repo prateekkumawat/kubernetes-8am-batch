@@ -18,3 +18,10 @@ https://kubernetes.io/docs/concepts/services-networking/ingress/
 path routing ; host routing ; routing manage 
 
 --- Nginx kong Envoy ---- routing rules writing 
+
+
+Ingress Install ::::: 
+
+https://github.com/kubernetes/ingress-nginx/blob/main/docs/deploy/index.md   open this link apply below yaml 
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.14.1/deploy/static/provider/cloud/deploy.yaml
