@@ -1,0 +1,50 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  
+spec:
+  ingressClassName: nginx 
+  rules:
+  - host: api.mgmt.ocelottraining.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /app1
+        backend:
+          service:
+            name: app1
+            port: 
+              number: 80
+  - host: api.mgmt.ocelottraining.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /app2
+        backend:
+          service:
+            name: app2
+            port: 
+              number: 80            
+  - host: app2.mgmt.ocelottraining.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: app2
+            port: 
+              number: 80            
+  - host: app1.mgmt.ocelottraining.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: app1
+            port: 
+              number: 80            
