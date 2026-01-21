@@ -1,0 +1,36 @@
+Kubernetes schduling ::::: 
+- pod distribution management is manage by kubernetes schduler. 
+- that schduler is decided on ehich node your pod will be run and availabel 
+- kubernetes schduler is decided to manage 
+
+3 way to manage schdule 
+- NodeSelector 
+- Taint and Tolerations 
+- Affinity 
+
+Schduleing managemnt working on Label based... 
+Label key:value
+
+NodeSelector ::: 
+- label based node selection 
+- just match label and schdule that 
+-  nodeSelector is the simplest recommended form of node selection constraint
+
+kubectl label nodes <your-node-name> disktype=ssd 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+---------------------
+  nodeSelector:            ----->   match with node Label 
+    disktype: ssd
+---------------------  
+
+https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
