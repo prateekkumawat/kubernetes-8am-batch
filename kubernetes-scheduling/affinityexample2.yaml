@@ -13,17 +13,13 @@ spec:
     spec:
       affinity:
         nodeAffinity: 
-          requiredDuringSchedulingIgnoredDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution: 
             nodeSelectorTerms:
               - matchExpressions:
                 - key: app 
                   operator: In 
                   values: 
                   - infra
-                - key: infratype
-                  operator: In 
-                  values: 
-                  - scaleapp  
       containers:
       - name: myapp2
         image: busybox
