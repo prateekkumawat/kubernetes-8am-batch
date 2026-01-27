@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taintpod
+  labels:
+    app.kubernetes.io/name: taintpod
+spec:
+  containers:
+  - name: taintpod
+    image: nginx
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "50m"
+      limits:
+        memory: "100Mi"
+        cpu: "100m"  
+    ports:
+      - containerPort: 80
