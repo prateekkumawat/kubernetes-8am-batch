@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sts-data-vol-0
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sts-app
+spec:
+  selector:
+    matchLabels:
+      app: sts-app
+  serviceName: sts-app-svc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sts-app
+    spec:
+      containers:
+      - name: sts-app
+        image: registry.k8s.io/nginx-slim:0.8
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+      volumeMounts:
+      - name: www
+        persistentVolumeClaim:
+          claimName: sts-data-vol-0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sts-app-svc
+spec:
+  selector:
+    app: sts-app
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort
