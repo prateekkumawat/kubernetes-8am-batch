@@ -23,6 +23,9 @@ spec:
           requests:
             cpu: 100m
             memory: 150Mi
+        command:
+          - sleep
+          - "3600"    
         volumeMounts:
         - name: localtime
           mountPath: /etc/localtime
