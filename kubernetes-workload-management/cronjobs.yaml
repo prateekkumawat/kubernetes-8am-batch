@@ -5,6 +5,7 @@ metadata:
   namespace: default
 spec:
   schedule: "*/1 * * * *"
+  ttlSecondsAfterFinished: 80
   jobTemplate:
     spec:
       template:
