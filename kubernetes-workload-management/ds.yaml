@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ds-app
+  namespace: default
+  labels:
+    app: ds-app
+spec:
+  selector:
+    matchLabels:
+      app: ds-app
+  template:
+    metadata:
+      labels:
+        app: ds-app
+    spec:
+      containers:
+      - name: ds-app
+        image: debian:latest
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 150Mi
+        volumeMounts:
+        - name: localtime
+          mountPath: /etc/localtime
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: localtime
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
