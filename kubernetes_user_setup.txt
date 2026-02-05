@@ -53,5 +53,10 @@ roleRef:
   apiGroup: ""
 
 
+# kubectl create clusterrolebinding kube1user-view \
+  --clusterrole=view \
+  --user=kube1user
+
+
 # check user is working properly or not 
 kubectl --context=kube1user-context get pod 
