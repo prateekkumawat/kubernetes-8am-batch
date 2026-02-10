@@ -1,0 +1,33 @@
+Automation ::::
+
+- shell script // python  --- server tool and config or daily jobs 
+- ansible --- configuration and server patch management // network 
+- cloud platform automation --- terraform 
+
+aws --- cloud formation yaml //json --- 
+azure --- arm templates 
+google --- template 
+
+terraform ---- multi cloud that should manage by using one product ---- Learning curve devops need to focus one tool
+language  HCL ---key value ; 
+- terraform multiple ready modules and code bases support 
+- DRY code ( Do not repeat ) 
+
+terraform uses provider ---- cloud platform which you want to maintain 
+Providers are a logical abstraction of an upstream API. They are responsible for understanding API interactions and exposing resources.
+# https://registry.terraform.io/browse/providers
+
+terraform resource :::: cloud service that you want to manage create using terraform like vpc ec2 security group 
+
+terraform commands :::: terraform init plan and apply 
+
+terraform install ::: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+https://developer.hashicorp.com/terraform/install
+
+
+terraform structure ::::
+main.tf :::: resources and services mentioned in this 
+provider.tf :::: which provider use define in this 
+output.tf :::: collect your output 
+variable.tf ::: variables define in this files 
+terraform.tfvars ::: values of variables 
