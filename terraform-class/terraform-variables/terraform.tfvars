@@ -1,6 +1,6 @@
 aws_region = "ap-south-1"
-aws_access_key = "AKIAYZZGSWISRXMG3AUD"
-aws_secret_key = "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"
+aws_access_key = "xxxx"
+aws_secret_key = "xxxx"
 env = "prod"
 project = "hsit-app"
 vpc_cidr = "10.10.0.0/16"
