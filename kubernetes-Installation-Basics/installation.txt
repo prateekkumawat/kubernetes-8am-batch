@@ -16,7 +16,11 @@ systemctl start docker
 systemctl enable docker 
 
 step4 : Ip Forwarding Rule 
-net.ipv4.ip_forward = 1 in file /etc/sysctl.conf
+net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+
+ in file /etc/sysctl.conf
 sysctl --system or system -p 
 
 
@@ -32,10 +36,10 @@ step 5 : install kuberbnetes repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.35/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.35/rpm/repodata/repomd.xml.key
 #exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 
