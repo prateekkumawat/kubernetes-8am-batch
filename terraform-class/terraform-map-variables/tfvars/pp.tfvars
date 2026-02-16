@@ -1,4 +1,4 @@
-# terraform apply -var-file=".\tfvars\pp.tfvars" -state="pp.tfstte"
+# terraform apply -var-file=".\tfvars\pp.tfvars" -state="pp.tfstate"
 aws_region = "ap-south-2"
 vpc_cidr = "10.10.0.0/16"
 project = "multienv-project"

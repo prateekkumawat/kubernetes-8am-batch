@@ -1,4 +1,4 @@
-#terraform apply -var-file=".\tfvars\stage.tfvars" -state="stage.tfstte"
+#terraform apply -var-file=".\tfvars\stage.tfvars" -state="stage.tfstate"
 aws_region = "ap-south-1"
 vpc_cidr = "10.0.0.0/16"
 project = "terraform-project"
