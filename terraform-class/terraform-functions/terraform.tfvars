@@ -1,0 +1,37 @@
+#terraform apply -var-file=".\tfvars\stage.tfvars" -state="stage.tfstate"
+aws_region = "ap-south-1"
+vpc_cidr = "10.0.0.0/16"
+project = "terraform-project"
+env = "stage"
+subnet_details = {
+  "subnet1" = {
+    cidr = "10.0.1.0/24"
+    az = "ap-south-1a"
+  }
+  "subnet2" = {
+    cidr = "10.0.2.0/24"
+    az = "ap-south-1b"
+  }
+  "subnet3" = {
+    cidr = "10.0.3.0/24"
+    az = "ap-south-1a"
+  }
+  "subnet4" = { 
+    cidr = "10.0.4.0/24"
+    az = "ap-south-1b"
+  }
+}
+dynameic_ingress_rules = {
+  "http" = {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp" 
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  "ssh" = {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp" 
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
