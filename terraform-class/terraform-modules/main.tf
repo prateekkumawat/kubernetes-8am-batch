@@ -68,6 +68,51 @@ module "stage-sec-grp1" {
 
 }
 
+module "stage-rds-sec-grp1" {
+  source = "./modules/security-group"
+
+  env = "stage"
+  project = "kubernetes-8am-batch"
+  aws_region = "ap-south-1"
+  vpc_id = module.stage_vpc.vpc_id  
+  ingress_rules = {
+    "mysql" = {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    },
+  }    
+
+   egress_rules = {
+    
+        "all" = {
+        from_port   = 0
+        to_port     = 0
+        protocol    = "-1"
+        cidr_blocks = ["0.0.0.0/0"] 
+        }
+    
+    }
+
+}
+
+module "stage-rds-instance" {
+  source = "./modules/rds"
+
+  env = "stage"
+  project = "kubernetes-8am-batch"
+  aws_region = "ap-south-1"
+  subnet_ids = [module.stage_vpc.subnet1_id, module.stage_vpc.subnet2_id]
+  allocated_storage = 20
+  engiename = "mysql"
+  engine_version = "8.0"
+  instance_class = "db.t3.micro"
+  username = "admin"
+  password = "Admin12345"
+  db_security_group_id = module.stage-rds-sec-grp1.aws_security_group_id
+}
+
 module "pp_vpc" {
   source = "./modules/vpc"
 
