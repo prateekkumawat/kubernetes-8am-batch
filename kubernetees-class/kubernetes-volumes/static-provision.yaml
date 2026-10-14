@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: static
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-mount-1
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /mnt/data-apps
+    server: 172.31.4.169
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-data-vol1
+  namespace: static
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-data
+  namespace: static
+spec:
+  selector:
+    matchLabels:
+      app: storage-data
+  template:
+    metadata:
+      labels:
+        app: storage-data
+    spec:
+      volumes:
+      - name: data-collect
+        persistentVolumeClaim:
+          claimName: nfs-data-vol1
+      containers:
+      - name: storage-data
+        image: ubuntu:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        command:
+          - sleep
+          - "3600"
+        volumeMounts:
+        - name: data-collect
+          mountPath: /opt
+        
